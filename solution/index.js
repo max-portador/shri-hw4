@@ -2,7 +2,7 @@ module.exports = function (Homework) {
 
     const { AsyncArray, add, subtract, multiply, divide, less, equal, lessOrEqual } = Homework;
 
-    return (array, fn, initialValue, cb) => {
+    return async (array, fn, initialValue, cb) => {
 
         let i = 0
         let acc = initialValue
