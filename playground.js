@@ -89,7 +89,7 @@ a.push(4, () => {
 //
 // lessOrEqual(12, 19, (result) => console.log('результат операции МЕНЬШЕ ИЛИ РАВНО', result));
 
-const asyncArray = new Homework.AsyncArray([1, 2, 3, 4]);
+const asyncArray = new Homework.AsyncArray([1, 2, 3, 4, - 10]);
 const reducerSum = (acc, curr, i, src, cb) => Homework.add(acc, curr, cb);
 
 reduce(asyncArray, reducerSum, 0, (res) => { console.log(res); // 10
