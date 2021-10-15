@@ -95,51 +95,6 @@ const reducerSum = (acc, curr, i, src, cb) => Homework.add(acc, curr, cb);
 reduce(asyncArray, reducerSum, 0, (res) => { console.log(res); // 10
  });
 
-let acc = 0
-let i = 0
-
-async function customCB (res) {
-
-    async function addCB(p_newElem) {
-        const newElem = await p_newElem
-        acc = newElem
-        asyncArray.length(whatLen)
-    }
-
-
-    async function printRes(p_res) {
-        const res = await p_res
-        add(acc, res, addCB)
-        console.log(acc)
-    }
-
-    async function isNotEnd(p_isLess) {
-        const isLess = await p_isLess
-        if (isLess) {
-            i += 1
-            printRes(res)
-        }
-        }
-
-    async function whatLen(arrLen) {
-        const len = await arrLen
-        less(i, len, isNotEnd)
-    }
-
-    asyncArray.length(whatLen)
-
-    async function getCurr(p_curr){
-        let curr = await p_curr
-
-    }
-
-    asyncArray.get(i, getCurr())
-
-
-}
-
-
-
 function reduce(asyncArray, fn, initialValue, cb) {
     let i = 0
     let acc = initialValue
@@ -148,16 +103,19 @@ function reduce(asyncArray, fn, initialValue, cb) {
     async function superCB(res){
 
         async function waitRes(p_res) {
-            const res = await p_res
-            acc = res
+            acc = await p_res
             asyncArray.get(i, getCurr)
+        }
+
+        async function increment(p_inc) {
+            i = await p_inc
+            waitRes(res)
         }
 
         async function isNotEnd(p_isLess) {
             const isLess = await p_isLess
             if (isLess) {
-                i += 1
-                waitRes(res)
+                add(i, 1, increment)
             } else {
                 cb(acc)
             }

@@ -11,16 +11,19 @@ module.exports = function (Homework) {
         async function superCB(res){
 
             async function waitRes(p_res) {
-                const res = await p_res
-                acc = res
+                acc = await p_res
                 asyncArray.get(i, getCurr)
+            }
+
+            async function increment(p_inc) {
+                i = await p_inc
+                waitRes(res)
             }
 
             async function isNotEnd(p_isLess) {
                 const isLess = await p_isLess
                 if (isLess) {
-                    i += 1
-                    waitRes(res)
+                    add(i, 1, increment)
                 } else {
                     cb(acc)
                 }
