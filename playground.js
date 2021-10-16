@@ -95,6 +95,12 @@ const reducerSum = (acc, curr, i, src, cb) => Homework.add(acc, curr, cb);
 reduce(asyncArray, reducerSum, 0, (res) => { console.log(res); // 10
  });
 
+const myReduce = require("./solution/index")(Homework)
+
+
+myReduce(asyncArray, reducerSum, 0, (res) => { console.log(res); // 10
+});
+
 function reduce(asyncArray, fn, initialValue, cb) {
     const array = asyncArray
     let i = 0

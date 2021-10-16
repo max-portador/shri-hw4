@@ -2,7 +2,7 @@ module.exports = function (Homework) {
 
     const { AsyncArray, add, subtract, multiply, divide, less, equal, lessOrEqual } = Homework;
 
-    return async (array, fn, initialValue, cb) => {
+    return (array, fn, initialValue, cb) => {
 
         let i = 0
         let acc = initialValue
@@ -32,7 +32,7 @@ module.exports = function (Homework) {
         }
 
         async function getCurr(curr){
-            fn(acc, await curr, i, asyncArray, superCB)
+            fn(acc, await curr, i, array, superCB)
         }
 
         array.get(i, getCurr)
