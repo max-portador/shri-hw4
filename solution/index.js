@@ -12,37 +12,29 @@ module.exports = function (Homework) {
 
             async function waitRes(p_res) {
                 acc = await p_res
-                asyncArray.get(i, getCurr)
+                array.get(i, getCurr)
             }
 
-            async function increment(p_inc) {
-                i = await p_inc
+            async function increment(p_i) {
+                i = await p_i
                 waitRes(res)
             }
 
-            async function isNotEnd(p_isLess) {
-                const isLess = await p_isLess
-                if (isLess) {
-                    add(i, 1, increment)
-                } else {
-                    cb(acc)
-                }
+            async function isNotEnd(isLess) {
+                if (await isLess) { add(i, 1, increment) }
+                else { cb(acc) }
             }
 
-            async function whatLen(arrLen) {
-                const len = await arrLen
-                less(i, len, isNotEnd)
-            }
+            async function whatLen(arrLen) { less(i, await arrLen, isNotEnd)}
 
-            asyncArray.length(whatLen)
+            array.length(whatLen)
 
         }
 
-        async function getCurr(p_curr){
-            curr = await p_curr
-            fn(acc, curr, i, asyncArray, superCB)
+        async function getCurr(curr){
+            fn(acc, await curr, i, asyncArray, superCB)
         }
 
-        asyncArray.get(i, getCurr)
+        array.get(i, getCurr)
     }
 }

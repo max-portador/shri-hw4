@@ -89,13 +89,14 @@ a.push(4, () => {
 //
 // lessOrEqual(12, 19, (result) => console.log('результат операции МЕНЬШЕ ИЛИ РАВНО', result));
 
-const asyncArray = new Homework.AsyncArray([1, 2, 3, 4, - 10]);
+const asyncArray = new Homework.AsyncArray([1, 2, 3, 4, 10]);
 const reducerSum = (acc, curr, i, src, cb) => Homework.add(acc, curr, cb);
 
 reduce(asyncArray, reducerSum, 0, (res) => { console.log(res); // 10
  });
 
 function reduce(asyncArray, fn, initialValue, cb) {
+    const array = asyncArray
     let i = 0
     let acc = initialValue
     let curr
@@ -104,17 +105,16 @@ function reduce(asyncArray, fn, initialValue, cb) {
 
         async function waitRes(p_res) {
             acc = await p_res
-            asyncArray.get(i, getCurr)
+            array.get(i, getCurr)
         }
 
-        async function increment(p_inc) {
-            i = await p_inc
+        async function increment(p_i) {
+            i = await p_i
             waitRes(res)
         }
 
-        async function isNotEnd(p_isLess) {
-            const isLess = await p_isLess
-            if (isLess) {
+        async function isNotEnd(isLess) {
+            if (await isLess) {
                 add(i, 1, increment)
             } else {
                 cb(acc)
@@ -122,19 +122,16 @@ function reduce(asyncArray, fn, initialValue, cb) {
         }
 
         async function whatLen(arrLen) {
-            const len = await arrLen
-            less(i, len, isNotEnd)
+            less(i, await arrLen, isNotEnd)
         }
 
-        asyncArray.length(whatLen)
+        array.length(whatLen)
 
     }
 
-    async function getCurr(p_curr){
-        curr = await p_curr
-        fn(acc, curr, i, asyncArray, superCB)
+    async function getCurr(curr){
+        fn(acc, await curr, i, asyncArray, superCB)
     }
 
-    asyncArray.get(i, getCurr)
-
+    array.get(i, getCurr)
 }
